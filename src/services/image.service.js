@@ -13,6 +13,25 @@ const imageService = {
         const commentData = await prisma.binh_luan.findMany({ where: { hinh_id: +id } })
         if (!commentData || commentData.length === 0) throw new BadRequestException("ảnh không không có bình luận nào cả");
         return commentData
+    },
+    chekSaveImage: async (req) => {
+        const { id } = req.params;
+
+        let imageExist = await prisma.hinh_anh.findFirst({ where: { hinh_id: +id } })
+        if (!imageExist) throw new BadRequestException("ảnh không tồn tại");
+
+        imageExist = await prisma.luu_anh.findFirst({
+            where: {
+                hinh_id: +id,
+                nguoi_dung_id: req.user.nguoi_dung_id
+            }
+        })
+
+        return {
+            hinh_anh: id,
+            isCheckSave: imageExist ? true : false,
+            data: imageExist || null
+        }
     }
 
 

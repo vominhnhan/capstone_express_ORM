@@ -20,6 +20,15 @@ const imageCotroller = {
             next(err);
         }
     },
+    chekSaveImage: async (req, res, next) => {
+        try {
+            const result = await imageService.chekSaveImage(req);
+            const resData = responseSuccess(result, result.data ? "Image has been saved." : "Image has not been saved.");
+            res.status(resData.code).json(resData);
+        } catch (err) {
+            next(err);
+        }
+    }
 }
 
 export default imageCotroller
