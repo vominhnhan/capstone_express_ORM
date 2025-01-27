@@ -4,8 +4,6 @@ import { protect } from "../middleware/protect.middleware.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/:id", protect, userController.getUserById);
-
-userRouter.get(`/:id/images`, protect, userController.getImagesByUserId);
+userRouter.get("/getInfo", protect, userController.getInfo);
 
 export default userRouter;
