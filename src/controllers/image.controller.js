@@ -1,7 +1,7 @@
 import { responseSuccess } from "../common/helpers/response.helper.js";
 import imageService from "../services/image.service.js";
 
-const imageCotroller = {
+const imageController = {
     getDetailImage: async (req, res, next) => {
         try {
             const result = await imageService.getDetailImage(req);
@@ -37,7 +37,19 @@ const imageCotroller = {
         } catch (err) {
             next(err);
         }
-    }
+    },
+    getSaveImageByUserId: async (req, res, next) => {
+        try {
+          const result = await imageService.getSaveImageByUserId(req);
+          const resData = responseSuccess(
+            result,
+            `Get save image by user id: ${req.params.id} successfully`
+          );
+          res.status(resData.code).json(resData);
+        } catch (err) {
+          next(err);
+        }
+      }
 }
 
-export default imageCotroller
+export default imageController
