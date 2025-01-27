@@ -1,6 +1,13 @@
+import {
+  ACCESS_TOKEN_EXPIRED,
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_EXPIRED,
+  REFRESH_TOKEN_SECRET,
+} from "../common/constant/app.constant.js";
 import { BadRequestException } from "../common/helpers/error.helper.js";
 import prisma from "../common/prisma/init.prisma.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const authService = {
   register: async (req) => {
@@ -26,8 +33,6 @@ const authService = {
         ho_ten: ho_ten,
         email: email,
         mat_khau: hashPass,
-        tuoi: tuoi,
-        anh_dai_dien: anh_dai_dien,
       },
     });
 
@@ -58,9 +63,25 @@ const authService = {
       throw new BadRequestException(`Password is incorrect`);
     }
 
+    const tokens = authService.createTokens(userExists.nguoi_dung_id);
+
+    return tokens;
+  },
+
+  createTokens: (userId) => {
+    if (!userId) {
+      throw new BadRequestException(`User is not exits`);
+    }
+    const accessToken = jwt.sign({ userId: userId }, ACCESS_TOKEN_SECRET, {
+      expiresIn: ACCESS_TOKEN_EXPIRED,
+    });
+
+    const refreshToken = jwt.sign({ userId: userId }, REFRESH_TOKEN_SECRET, {
+      expiresIn: REFRESH_TOKEN_EXPIRED,
+    });
     return {
-      accessToken: `accessToken`,
-      refreshToken: `refreshToken`,
+      accessToken: accessToken,
+      refreshToken: refreshToken,
     };
   },
 };
