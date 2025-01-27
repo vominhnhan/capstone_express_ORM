@@ -5,5 +5,6 @@ import { protect } from "../middleware/protect.middleware.js";
 const userRouter = express.Router();
 
 userRouter.get("/getInfo", protect, userController.getInfo);
+userRouter.put("/editUserInfo", protect, userController.editUserInfo)
 
 export default userRouter;

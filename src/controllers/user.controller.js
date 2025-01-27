@@ -14,6 +14,15 @@ const userController = {
       next(err);
     }
   },
+  editUserInfo: async (req, res, next) => {
+    try {
+      const result = await userService.editUserInfo(req);
+      const resData = responseSuccess(result, `Edit info user successfully`);
+      res.status(resData.code).json(resData);
+    } catch (err) {
+      next(err);
+    }
+  }
 };
 
 export default userController;
