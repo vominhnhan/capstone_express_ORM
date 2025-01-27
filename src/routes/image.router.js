@@ -6,10 +6,4 @@ const imageRouter = express.Router();
 
 imageRouter.get("/getDetailImage/:id", imageCotroller.getDetailImage);
 
-imageRouter.get(
-  `/getSavedImage/:id`,
-  protect,
-  imageCotroller.getSavedImagesByUserId
-);
-
 export default imageRouter;

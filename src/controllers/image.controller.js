@@ -14,13 +14,24 @@ const imageCotroller = {
       next(err);
     }
   },
-
-  getSavedImagesByUserId: async (req, res, next) => {
+  getCommentByIdImage: async (req, res, next) => {
     try {
-      const result = await imageService.getSavedImagesByUserId(req);
+      const result = await imageService.getCommentByIdImage(req);
       const resData = responseSuccess(
         result,
-        `Get saved images by user id: ${req.params.id} successfully`
+        `Get comment image by id: ${req.params.id} successfully`
+      );
+      res.status(resData.code).json(resData);
+    } catch (err) {
+      next(err);
+    }
+  },
+  chekSaveImage: async (req, res, next) => {
+    try {
+      const result = await imageService.chekSaveImage(req);
+      const resData = responseSuccess(
+        result,
+        result.data ? "Image has been saved." : "Image has not been saved."
       );
       res.status(resData.code).json(resData);
     } catch (err) {
@@ -28,5 +39,19 @@ const imageCotroller = {
     }
   },
 };
+
+//   getSavedImagesByUserId: async (req, res, next) => {
+//     try {
+//       const result = await imageService.getSavedImagesByUserId(req);
+//       const resData = responseSuccess(
+//         result,
+//         `Get saved images by user id: ${req.params.id} successfully`
+//       );
+//       res.status(resData.code).json(resData);
+//     } catch (err) {
+//       next(err);
+//     }
+//   },
+// };
 
 export default imageCotroller;
