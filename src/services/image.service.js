@@ -32,9 +32,24 @@ const imageService = {
             isCheckSave: imageExist ? true : false,
             data: imageExist || null
         }
+    },
+    commentImage: async (req) => {
+        const { id } = req.params;
+        const {hinh_id, noi_dung } = req.body
+        let imageExist = await prisma.hinh_anh.findFirst({ where: { hinh_id: +id } })
+        if (!imageExist) throw new BadRequestException("ảnh không tồn tại");
+
+        const commentNew = await prisma.binh_luan.create({
+            data: {
+                nguoi_dung_id:req.user.nguoi_dung_id,
+                hinh_id,
+                ngay_binh_luan:new Date(),
+                noi_dung
+            }
+        })
+
+        return commentNew
     }
-
-
 }
 
 export default imageService

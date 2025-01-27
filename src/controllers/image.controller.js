@@ -28,6 +28,15 @@ const imageCotroller = {
         } catch (err) {
             next(err);
         }
+    },
+    commentImage: async (req, res, next) => {
+        try {
+            const result = await imageService.commentImage(req);
+            const resData = responseSuccess(result, `Add comment image by id: ${req.params.id} successfully`,201);
+            res.status(resData.code).json(resData);
+        } catch (err) {
+            next(err);
+        }
     }
 }
 
