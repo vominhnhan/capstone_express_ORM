@@ -34,3 +34,10 @@ export class UnauthorizationException extends Error {
     this.code = 401;
   }
 }
+
+export class NotFoundException extends Error {
+  constructor(message = `NotFoundException`) {
+    super(message);
+    this.code = 404;
+  }
+}
