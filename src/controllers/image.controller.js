@@ -10,7 +10,16 @@ const imageCotroller = {
         } catch (err) {
             next(err);
         }
-    }
+    },
+    getCommentByIdImage: async (req, res, next) => {
+        try {
+            const result = await imageService.getCommentByIdImage(req);
+            const resData = responseSuccess(result, `Get comment image by id: ${req.params.id} successfully`);
+            res.status(resData.code).json(resData);
+        } catch (err) {
+            next(err);
+        }
+    },
 }
 
 export default imageCotroller
