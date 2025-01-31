@@ -24,8 +24,8 @@ const userService = {
       },
       data: {
         ho_ten: ho_ten?.trim() ? ho_ten?.trim() : user.ho_ten,
-        tuoi: tuoi ? tuoi : user.tuoi,
-        anh_dai_dien: anh_dai_dien ? anh_dai_dien : user.anh_dai_dien,
+        tuoi: Number.isInteger(tuoi) && tuoi > 0 ? tuoi : user.tuoi,
+        anh_dai_dien: anh_dai_dien ?? user.anh_dai_dien,
       },
     });
 

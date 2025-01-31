@@ -13,6 +13,8 @@ model binh_luan {
   hinh_id        Int?
   ngay_binh_luan DateTime    @db.Date
   noi_dung       String?     @db.VarChar(255)
+  updated_at     DateTime?   @db.Date
+  created_at     DateTime?   @db.Date
   nguoi_dung     nguoi_dung? @relation(fields: [nguoi_dung_id], references: [nguoi_dung_id], onDelete: Cascade, map: "binh_luan_ibfk_1")
   hinh_anh       hinh_anh?   @relation(fields: [hinh_id], references: [hinh_id], onDelete: Cascade, map: "binh_luan_ibfk_2")
 
@@ -26,6 +28,8 @@ model hinh_anh {
   duong_dan     String      @db.VarChar(255)
   mo_ta         String?     @db.VarChar(500)
   nguoi_dung_id Int?
+  updated_at    DateTime?   @db.Date
+  created_at    DateTime?   @db.Date
   binh_luan     binh_luan[]
   nguoi_dung    nguoi_dung? @relation(fields: [nguoi_dung_id], references: [nguoi_dung_id], onDelete: Cascade, map: "hinh_anh_ibfk_1")
   luu_anh       luu_anh[]
@@ -38,6 +42,8 @@ model luu_anh {
   nguoi_dung_id Int?
   hinh_id       Int?
   ngay_luu      DateTime    @db.Date
+  created_at    DateTime?   @db.Date
+  updated_at    DateTime?   @db.Date
   nguoi_dung    nguoi_dung? @relation(fields: [nguoi_dung_id], references: [nguoi_dung_id], onDelete: Cascade, map: "luu_anh_ibfk_1")
   hinh_anh      hinh_anh?   @relation(fields: [hinh_id], references: [hinh_id], onDelete: Cascade, map: "luu_anh_ibfk_2")
 
@@ -52,6 +58,8 @@ model nguoi_dung {
   ho_ten        String      @db.VarChar(255)
   tuoi          Int?
   anh_dai_dien  String?     @db.VarChar(255)
+  updated_at    DateTime?   @db.Date
+  created_at    DateTime?   @db.Date
   binh_luan     binh_luan[]
   hinh_anh      hinh_anh[]
   luu_anh       luu_anh[]
