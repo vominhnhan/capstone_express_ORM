@@ -123,6 +123,9 @@ const imageService = {
       where: {
         nguoi_dung_id: parseInt(userId),
       },
+      orderBy: {
+        created_at: "desc",
+      },
     });
 
     return images;
@@ -135,6 +138,9 @@ const imageService = {
     const images = await prisma.hinh_anh.findMany({
       where: {
         nguoi_dung_id: parseInt(userId),
+      },
+      orderBy: {
+        created_at: "desc",
       },
     });
 
@@ -159,8 +165,6 @@ const imageService = {
     await prisma.hinh_anh.delete({
       where: { hinh_id: imageId },
     });
-
-    return imageExist;
   },
   addImage: async (req) => {
     const { ten_hinh, duong_dan, mo_ta } = req.body;
