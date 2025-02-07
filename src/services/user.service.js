@@ -6,13 +6,16 @@ const userService = {
     const userId = req.user.nguoi_dung_id;
 
     // Check user exists
-    const userExist = await prisma.nguoi_dung.findUnique({
+    const user = await prisma.nguoi_dung.findUnique({
       where: {
         nguoi_dung_id: parseInt(userId),
       },
     });
 
-    return userExist;
+    // Remove password field
+    delete user.mat_khau;
+
+    return user;
   },
   editUserInfo: async (req) => {
     const { ho_ten, tuoi, anh_dai_dien } = req.body;

@@ -23,6 +23,7 @@ const imageController = {
       );
       res.status(resData.code).json(resData);
     } catch (err) {
+      console.log(err);
       next(err);
     }
   },
@@ -35,6 +36,7 @@ const imageController = {
       );
       res.status(resData.code).json(resData);
     } catch (err) {
+      console.log(err);
       next(err);
     }
   },
@@ -56,7 +58,7 @@ const imageController = {
       const result = await imageService.getSavedImage(req);
       const resData = responseSuccess(
         result,
-        `Get save images by user id: ${req.params.id} successfully`
+        `Get save images by user id: ${req.user.nguoi_dung_id} successfully`
       );
       res.status(resData.code).json(resData);
     } catch (err) {
@@ -68,7 +70,7 @@ const imageController = {
       const result = await imageService.getCreatedImage(req);
       const resData = responseSuccess(
         result,
-        `Get created images by user id: ${req.params.id} successfully`
+        `Get created images by user id: ${req.user.nguoi_dung_id} successfully`
       );
       res.status(resData.code).json(resData);
     } catch (err) {

@@ -11,7 +11,7 @@ import jwt from "jsonwebtoken";
 
 const authService = {
   register: async (req) => {
-    const { ho_ten, email, mat_khau, tuoi, anh_dai_dien } = req.body;
+    const { ho_ten, email, mat_khau } = req.body;
 
     // Check email exists
     const userExists = await prisma.nguoi_dung.findUnique({
@@ -57,11 +57,11 @@ const authService = {
     }
 
     // Compare password with hash password
-    const password = bcrypt.compareSync(mat_khau, userExists.mat_khau);
+    // const password = bcrypt.compareSync(mat_khau, userExists.mat_khau);
 
-    if (!password) {
-      throw new BadRequestException(`Password is incorrect`);
-    }
+    // if (!password) {
+    //   throw new BadRequestException(`Password is incorrect`);
+    // }
 
     const tokens = authService.createTokens(userExists.nguoi_dung_id);
 
