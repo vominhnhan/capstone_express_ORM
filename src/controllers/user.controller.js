@@ -7,7 +7,7 @@ const userController = {
       const result = await userService.getInfo(req);
       const resData = responseSuccess(
         result,
-        `Get user #${req.params.id} successfully`
+        `Get user #${req.user.nguoi_dung_id} successfully`
       );
       res.status(resData.code).json(resData);
     } catch (err) {

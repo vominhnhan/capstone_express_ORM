@@ -10,35 +10,42 @@ const imageService = {
     const { id } = req.params;
     const idNum = Number(id);
 
-    if (isNaN(idNum)) throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
+    if (isNaN(idNum))
+      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
 
     const imageExists = await prisma.hinh_anh.findFirst({
-      where: { hinh_id: idNum }
+      where: { hinh_id: idNum },
     });
 
     if (!imageExists) throw new NotFoundException("Không tìm thấy ảnh");
 
     const userExists = await prisma.nguoi_dung.findFirst({
-      where: { nguoi_dung_id: imageExists.nguoi_dung_id }
-    })
+      where: { nguoi_dung_id: imageExists.nguoi_dung_id },
+    });
 
     if (!userExists) throw new NotFoundException("Không tìm thấy nguoi dung");
 
-    const user = getInfoData({ fileds: ["nguoi_dung_id", "ho_ten", "tuoi", "anh_dai_dien"], object: userExists })
-    const image = getInfoData({ fileds: ["hinh_id","ten_hinh", "duong_dan", "mo_ta"], object: imageExists })
+    const user = getInfoData({
+      fileds: ["nguoi_dung_id", "ho_ten", "tuoi", "anh_dai_dien"],
+      object: userExists,
+    });
+    const image = getInfoData({
+      fileds: ["hinh_id", "ten_hinh", "duong_dan", "mo_ta"],
+      object: imageExists,
+    });
 
     return { image, user };
   },
   getCommentByIdImage: async (req) => {
-
     const { id } = req.params;
     const idNum = Number(id);
 
-    if (isNaN(idNum)) throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
+    if (isNaN(idNum))
+      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
 
     // Kiểm tra xem ảnh có tồn tại không
     const imageExists = await prisma.hinh_anh.findUnique({
-      where: { hinh_id: idNum }
+      where: { hinh_id: idNum },
     });
 
     if (!imageExists) throw new NotFoundException("Ảnh không tồn tại!");
@@ -46,12 +53,13 @@ const imageService = {
     // Lấy danh sách bình luận
     const commentData = await prisma.binh_luan.findMany({
       orderBy: {
-        created_at: 'desc',
+        created_at: "desc",
       },
-      where: { hinh_id: idNum }
+      where: { hinh_id: idNum },
     });
 
-    if (commentData.length === 0) throw new NotFoundException("Ảnh không có bình luận nào cả");
+    if (commentData.length === 0)
+      throw new NotFoundException("Ảnh không có bình luận nào cả");
 
     return commentData;
   },
@@ -59,7 +67,8 @@ const imageService = {
     const { id } = req.params;
     const idNum = Number(id);
 
-    if (isNaN(idNum)) throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
+    if (isNaN(idNum))
+      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
 
     // Kiểm tra ảnh tồn tại
     let imageExist = await prisma.hinh_anh.findFirst({
@@ -85,10 +94,11 @@ const imageService = {
     const idNum = Number(id);
     const { noi_dung } = req.body;
 
-    if (isNaN(idNum)) throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
+    if (isNaN(idNum))
+      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
 
     let imageExist = await prisma.hinh_anh.findFirst({
-      where: { hinh_id: idNum }
+      where: { hinh_id: idNum },
     });
 
     if (!imageExist) throw new NotFoundException("ảnh không tìm thấy");
@@ -99,7 +109,7 @@ const imageService = {
         hinh_id: idNum,
         ngay_binh_luan: new Date(),
         noi_dung,
-      }
+      },
     });
 
     return commentNew;
@@ -109,13 +119,9 @@ const imageService = {
     const userId = req.user.nguoi_dung_id;
 
     // Get images by user id
-    const images = await prisma.hinh_anh.findMany({
+    const images = await prisma.luu_anh.findMany({
       where: {
-        luu_anh: {
-          some: {
-            nguoi_dung_id: parseInt(userId),
-          },
-        },
+        nguoi_dung_id: parseInt(userId),
       },
     });
 
@@ -136,10 +142,10 @@ const imageService = {
   },
   deleteImage: async (req) => {
     const { id } = req.params;
-
-    // Check id is a number and similar to string id
     const imageId = parseInt(id);
-    if (isNaN(imageId) || String(imageId) !== id) {
+
+    // Check id similar to string id
+    if (String(imageId) !== id) {
       throw new BadRequestException("Invalid image ID");
     }
 
