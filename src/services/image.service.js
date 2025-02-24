@@ -4,6 +4,7 @@ import {
 } from "../common/helpers/error.helper.js";
 import prisma from "../common/prisma/init.prisma.js";
 import getInfoData from "../common/utils/getInfoData.js";
+import { v2 as cloudinary } from "cloudinary";
 
 const imageService = {
   getDetailImage: async (req) => {
@@ -167,19 +168,39 @@ const imageService = {
     });
   },
   addImage: async (req) => {
-    const { ten_hinh, duong_dan, mo_ta } = req.body;
+    const file = req.file;
 
-    // Create new image
-    const image = await prisma.hinh_anh.create({
+    if (!file) {
+      throw new BadRequestException("Please upload an image");
+    }
+
+    // Configuration
+    cloudinary.config({
+      cloud_name: "dsti6aojz",
+      api_key: "374217273238878",
+      api_secret: "uIeIWGgOWSBjT7fBRx7frtK56kE", // Click 'View API Keys' above to copy your API secret
+    });
+
+    const uploadResult = await new Promise((resolve) => {
+      cloudinary.uploader
+        .upload_stream({ folder: "images" }, (error, uploadResult) => {
+          return resolve(uploadResult);
+        })
+        .end(file.buffer);
+    });
+
+    await prisma.hinh_anh.create({
       data: {
-        ten_hinh: ten_hinh,
-        duong_dan: duong_dan,
-        mo_ta: mo_ta,
+        ten_hinh: file.originalname,
+        duong_dan: uploadResult.secure_url,
         nguoi_dung_id: req.user.nguoi_dung_id,
       },
     });
 
-    return image;
+    return {
+      ten_hinh: file.originalname,
+      duong_dan: uploadResult.secure_url,
+    };
   },
 };
 
