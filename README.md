@@ -1,8 +1,8 @@
-- 1. Open Docker
-- 2. Open Table plus
-- 3. Create new a database in table plus
-- 4. Right click Tables => import => From SQL dump.. => select file db_images.sql
-- 5. Import file capstone_express_ORM.postman_collection.json in Postman
+- 1 - Open Docker
+- 2 - Open Table plus
+- 3 - Create new a database in table plus
+- 4 - Right click Tables => import => From SQL dump.. => select file db_images.sql
+- 5 - Import file capstone_express_ORM.postman_collection.json in Postman
 ## Task: Võ Minh Nhân
 Trang đăng nhập, đăng ký:
 - POST trang đăng ký: [http://localhost:3000/auth/register](http://localhost:3000/auth/register)
