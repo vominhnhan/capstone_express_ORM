@@ -5,6 +5,6 @@ const homeRouter = express.Router();
 
 homeRouter.get(`/getImages`, homeController.getImages);
 
-homeRouter.get(`/getDetailImg/:id`, homeController.getDetailImage);
+homeRouter.get(`/getImageByName`, homeController.getImageByName);
 
 export default homeRouter;
