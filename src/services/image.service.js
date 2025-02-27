@@ -7,6 +7,66 @@ import getInfoData from "../common/utils/getInfoData.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const imageService = {
+  // Lấy danh sách ảnh
+  getImages: async (req) => {
+    let { page, pageSize } = req.query
+
+    page = +page > 0 ? +page : 1;
+    pageSize = +pageSize > 0 ? +pageSize : 10;
+
+    const skip = (page - 1) * pageSize;
+    const totalItem = await prisma.hinh_anh.count()
+    const totlaPage = Math.ceil(totalItem / pageSize)
+
+    const images = await prisma.hinh_anh.findMany({
+      take: pageSize,
+      skip: skip,
+      orderBy: {
+        created_at: "desc",
+      }
+    })
+
+    return {
+      page,
+      pageSize,
+      totlaPage,
+      totalItem,
+      items: images,
+      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined
+    }
+  },
+  // Lấy danh sách ảnh theo tên
+  getImageByName: async (req) => {
+    let { page, pageSize, search } = req.query
+
+    page = +page > 0 ? +page : 1;
+    pageSize = +pageSize > 0 ? +pageSize : 10;
+    search = search?.trim() || '';
+
+
+    const skip = (page - 1) * pageSize;
+    const whereSearch = search ? { ten_hinh: { contains: search } } : {}
+
+    const totalItem = await prisma.hinh_anh.count({ where: whereSearch })
+    const totalPage = Math.ceil(totalItem / pageSize)
+
+    const images = await prisma.hinh_anh.findMany({
+      take: pageSize,
+      skip: skip,
+      orderBy: { created_at: "desc" },
+      where: whereSearch,
+    })
+
+    return {
+      page,
+      pageSize,
+      totalPage,
+      totalItem,
+      items: images,
+      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined
+    }
+  },
+  // Lấy chi tiết ảnh
   getDetailImage: async (req) => {
     const { id } = req.params;
     const idNum = Number(id);
@@ -37,33 +97,7 @@ const imageService = {
 
     return { image, user };
   },
-  getCommentByIdImage: async (req) => {
-    const { id } = req.params;
-    const idNum = Number(id);
-
-    if (isNaN(idNum))
-      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
-
-    // Kiểm tra xem ảnh có tồn tại không
-    const imageExists = await prisma.hinh_anh.findUnique({
-      where: { hinh_id: idNum },
-    });
-
-    if (!imageExists) throw new NotFoundException("Ảnh không tồn tại!");
-
-    // Lấy danh sách bình luận
-    const commentData = await prisma.binh_luan.findMany({
-      orderBy: {
-        created_at: "desc",
-      },
-      where: { hinh_id: idNum },
-    });
-
-    if (commentData.length === 0)
-      throw new NotFoundException("Ảnh không có bình luận nào cả");
-
-    return commentData;
-  },
+  // Kiểm tra ảnh đã được lưu chưa
   chekSaveImage: async (req) => {
     const { id } = req.params;
     const idNum = Number(id);
@@ -89,31 +123,6 @@ const imageService = {
       hinh_anh: idNum,
       isCheckSave: !!userSavedImage, // Chuyển đổi sang boolean
     };
-  },
-  commentImage: async (req) => {
-    const { id } = req.params;
-    const idNum = Number(id);
-    const { noi_dung } = req.body;
-
-    if (isNaN(idNum))
-      throw new BadRequestException("ID không hợp lệ hoặc bị thiếu!");
-
-    let imageExist = await prisma.hinh_anh.findFirst({
-      where: { hinh_id: idNum },
-    });
-
-    if (!imageExist) throw new NotFoundException("ảnh không tìm thấy");
-
-    const commentNew = await prisma.binh_luan.create({
-      data: {
-        nguoi_dung_id: req.user.nguoi_dung_id,
-        hinh_id: idNum,
-        ngay_binh_luan: new Date(),
-        noi_dung,
-      },
-    });
-
-    return commentNew;
   },
   getSavedImage: async (req) => {
     // Get user id from token

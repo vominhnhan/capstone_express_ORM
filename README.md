@@ -19,14 +19,14 @@ Trang thêm ảnh:
 
 ## Task: Nguyễn Văn Sỹ
 Trang chủ:
-- GET danh sách ảnh về:
-- GET tìm kiếm danh sách ảnh theo tên:
+- GET danh sách ảnh về: [http://localhost:3000/home/getImages?page=1&pageSize=5](http://localhost:3000/home/getImages?page=1&pageSize=3)
+- GET tìm kiếm danh sách ảnh theo tên:[http://localhost:3000/home/getImageByName?page=1&pageSize=5&search=abc](http://localhost:3000/home/getImageByName?page=1&pageSize=1&search=a)
 
 Trang chi tiết:
-- GET thông tin ảnh và người tạo ảnh bằng id ảnh:
-- GET thông tin bình luận theo id ảnh:
-- GET thông tin đã lưu hình này chưa theo id ảnh:
-- POST để lưu thông tin bình luận của người dùng với hình ảnh:
+- GET thông tin ảnh và người tạo ảnh bằng id ảnh:[http://localhost:3000/image/getDetailImage/:id](http://localhost:3000/image/getDetailImage/:id)
+- GET thông tin bình luận theo id ảnh:[http://localhost:3000/comment/commentImage/:id](http://localhost:3000/comment/commentImage/:id)
+- GET thông tin đã lưu hình này chưa theo id ảnh:[http://localhost:3000/image/checkSaveImage/:id](http://localhost:3000/image/checkSaveImage/:id)
+- POST để lưu thông tin bình luận của người dùng với hình ảnh:[http://localhost:3000/comment/commentImage/:id](http://localhost:3000/comment/commentImage/:id)
 
 Chỉnh sửa thông tin cá nhân
-- PUT thông tin cá nhân của user:
+- PUT thông tin cá nhân của user:[http://localhost:3000/user/editUserInfo](http://localhost:3000/user/editUserInfo)

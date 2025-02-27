@@ -2,6 +2,7 @@ import { responseSuccess } from "../common/helpers/response.helper.js";
 import userService from "../services/user.service.js";
 
 const userController = {
+  // Lấy thông tin người dùng
   getInfo: async (req, res, next) => {
     try {
       const result = await userService.getInfo(req);
@@ -14,6 +15,7 @@ const userController = {
       next(err);
     }
   },
+  // Chỉnh sửa thông tin người dùng theo ID
   editUserInfo: async (req, res, next) => {
     try {
       const result = await userService.editUserInfo(req);

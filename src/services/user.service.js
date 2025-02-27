@@ -1,7 +1,10 @@
+import { BadRequestException } from "../common/helpers/error.helper.js";
 import prisma from "../common/prisma/init.prisma.js";
 import { v2 as cloudinary } from "cloudinary";
+import getInfoData from "../common/utils/getInfoData.js";
 
 const userService = {
+  // lay thong tin nguoi dung
   getInfo: async (req) => {
     // Get user id from token
     const userId = req.user.nguoi_dung_id;
@@ -18,43 +21,55 @@ const userService = {
 
     return user;
   },
+  // chỉnh sửa thông tin người dùng
   editUserInfo: async (req) => {
     const { ho_ten, tuoi } = req.body;
-
     const { user, file } = req;
+    let uploadResult;
 
-    // Configuration
+
     cloudinary.config({
       cloud_name: "dsti6aojz",
       api_key: "374217273238878",
       api_secret: "uIeIWGgOWSBjT7fBRx7frtK56kE", // Click 'View API Keys' above to copy your API secret
     });
 
-    let uploadResult;
-
+    // nếu có file ảnh thì upload lên cloudinary còn không thì giữ nguyên ảnh cũ
     if (file) {
-      uploadResult = await new Promise((resolve) => {
-        cloudinary.uploader
-          .upload_stream({ folder: "images" }, (error, uploadResult) => {
-            return resolve(uploadResult);
-          })
-          .end(file.buffer);
-      });
+      try {
+        uploadResult = await new Promise((resolve) => {
+          cloudinary.uploader
+            .upload_stream({ folder: "images" }, (error, uploadResult) => {
+              return resolve(uploadResult);
+            })
+            .end(file.buffer);
+        });
+      } catch (error) {
+        throw new BadRequestException("Lỗi khi tải ảnh lên Cloudinary");
+      }
     }
 
-
-    const updateNew = await prisma.nguoi_dung.update({
+    // update thông tin người dùng nhưng giữ nguyên thông tin cũ nếu không có dữ liệu mới
+    const updatedUser = await prisma.nguoi_dung.update({
       where: {
         nguoi_dung_id: user.nguoi_dung_id,
       },
       data: {
-        ho_ten: ho_ten?.trim() ? ho_ten?.trim() : user.ho_ten,
+        ho_ten: ho_ten?.trim() || user.ho_ten,
         tuoi: Number.isInteger(tuoi) && tuoi > 0 ? tuoi : user.tuoi,
-        anh_dai_dien: uploadResult ? uploadResult.secure_url : user.anh_dai_dien,
+        anh_dai_dien: uploadResult?.secure_url ?? user.anh_dai_dien,
+        updated_at: new Date()
       },
     });
 
-    return updateNew;
+    if (!updatedUser) throw new BadRequestException("Cập nhật thông tin người dùng thất bại!");
+
+    const userNewUpdate = getInfoData({
+      fileds: ["nguoi_dung_id", "ho_ten", "tuoi", "anh_dai_dien"],
+      object: updatedUser,
+    });
+
+    return userNewUpdate;
   },
 };
 
