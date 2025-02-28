@@ -57,11 +57,11 @@ const authService = {
     }
 
     // Compare password with hash password
-    // const password = bcrypt.compareSync(mat_khau, userExists.mat_khau);
+    const password = bcrypt.compareSync(mat_khau, userExists.mat_khau);
 
-    // if (!password) {
-    //   throw new BadRequestException(`Password is incorrect`);
-    // }
+    if (!password) {
+      throw new BadRequestException(`Password is incorrect`);
+    }
 
     const tokens = authService.createTokens(userExists.nguoi_dung_id);
 

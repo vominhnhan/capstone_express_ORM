@@ -9,22 +9,22 @@ import { v2 as cloudinary } from "cloudinary";
 const imageService = {
   // Lấy danh sách ảnh
   getImages: async (req) => {
-    let { page, pageSize } = req.query
+    let { page, pageSize } = req.query;
 
     page = +page > 0 ? +page : 1;
     pageSize = +pageSize > 0 ? +pageSize : 10;
 
     const skip = (page - 1) * pageSize;
-    const totalItem = await prisma.hinh_anh.count()
-    const totlaPage = Math.ceil(totalItem / pageSize)
+    const totalItem = await prisma.hinh_anh.count();
+    const totlaPage = Math.ceil(totalItem / pageSize);
 
     const images = await prisma.hinh_anh.findMany({
       take: pageSize,
       skip: skip,
       orderBy: {
         created_at: "desc",
-      }
-    })
+      },
+    });
 
     return {
       page,
@@ -32,30 +32,29 @@ const imageService = {
       totlaPage,
       totalItem,
       items: images,
-      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined
-    }
+      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined,
+    };
   },
   // Lấy danh sách ảnh theo tên
   getImageByName: async (req) => {
-    let { page, pageSize, search } = req.query
+    let { page, pageSize, search } = req.query;
 
     page = +page > 0 ? +page : 1;
     pageSize = +pageSize > 0 ? +pageSize : 10;
-    search = search?.trim() || '';
-
+    search = search?.trim() || "";
 
     const skip = (page - 1) * pageSize;
-    const whereSearch = search ? { ten_hinh: { contains: search } } : {}
+    const whereSearch = search ? { ten_hinh: { contains: search } } : {};
 
-    const totalItem = await prisma.hinh_anh.count({ where: whereSearch })
-    const totalPage = Math.ceil(totalItem / pageSize)
+    const totalItem = await prisma.hinh_anh.count({ where: whereSearch });
+    const totalPage = Math.ceil(totalItem / pageSize);
 
     const images = await prisma.hinh_anh.findMany({
       take: pageSize,
       skip: skip,
       orderBy: { created_at: "desc" },
       where: whereSearch,
-    })
+    });
 
     return {
       page,
@@ -63,8 +62,8 @@ const imageService = {
       totalPage,
       totalItem,
       items: images,
-      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined
-    }
+      message: images.length === 0 ? "Không tìm thấy ảnh" : undefined,
+    };
   },
   // Lấy chi tiết ảnh
   getDetailImage: async (req) => {
@@ -122,93 +121,6 @@ const imageService = {
     return {
       hinh_anh: idNum,
       isCheckSave: !!userSavedImage, // Chuyển đổi sang boolean
-    };
-  },
-  getSavedImage: async (req) => {
-    // Get user id from token
-    const userId = req.user.nguoi_dung_id;
-
-    // Get images by user id
-    const images = await prisma.luu_anh.findMany({
-      where: {
-        nguoi_dung_id: parseInt(userId),
-      },
-      orderBy: {
-        created_at: "desc",
-      },
-    });
-
-    return images;
-  },
-  getCreatedImage: async (req) => {
-    // Get user id from token
-    const userId = req.user.nguoi_dung_id;
-
-    // Get images by user id
-    const images = await prisma.hinh_anh.findMany({
-      where: {
-        nguoi_dung_id: parseInt(userId),
-      },
-      orderBy: {
-        created_at: "desc",
-      },
-    });
-
-    return images;
-  },
-  deleteImage: async (req) => {
-    const { id } = req.params;
-    const imageId = parseInt(id);
-
-    // Check id similar to string id
-    if (String(imageId) !== id) {
-      throw new BadRequestException("Invalid image ID");
-    }
-
-    // Check image exists
-    const imageExist = await prisma.hinh_anh.findFirst({
-      where: { hinh_id: imageId },
-    });
-    if (!imageExist) throw new NotFoundException("Image not found");
-
-    // Delete image
-    await prisma.hinh_anh.delete({
-      where: { hinh_id: imageId },
-    });
-  },
-  addImage: async (req) => {
-    const file = req.file;
-
-    if (!file) {
-      throw new BadRequestException("Please upload an image");
-    }
-
-    // Configuration
-    cloudinary.config({
-      cloud_name: "dsti6aojz",
-      api_key: "374217273238878",
-      api_secret: "uIeIWGgOWSBjT7fBRx7frtK56kE", // Click 'View API Keys' above to copy your API secret
-    });
-
-    const uploadResult = await new Promise((resolve) => {
-      cloudinary.uploader
-        .upload_stream({ folder: "images" }, (error, uploadResult) => {
-          return resolve(uploadResult);
-        })
-        .end(file.buffer);
-    });
-
-    await prisma.hinh_anh.create({
-      data: {
-        ten_hinh: file.originalname,
-        duong_dan: uploadResult.secure_url,
-        nguoi_dung_id: req.user.nguoi_dung_id,
-      },
-    });
-
-    return {
-      ten_hinh: file.originalname,
-      duong_dan: uploadResult.secure_url,
     };
   },
 };
