@@ -128,12 +128,12 @@ const userService = {
 
     if (!imageExist) throw new NotFoundException("Image not found");
 
-    // Check user exists
-    const userExists = await prisma.nguoi_dung.findFirst({
-      where: { nguoi_dung_id: imageExist.nguoi_dung_id },
-    });
-
-    if (!userExists) throw new NotFoundException("User not found");
+    // Check permission
+    if (imageExist.nguoi_dung_id !== req.user.nguoi_dung_id) {
+      throw new BadRequestException(
+        "You do not have permission to delete this image"
+      );
+    }
 
     // Delete image
     await prisma.hinh_anh.delete({
@@ -144,9 +144,10 @@ const userService = {
   // thêm ảnh của user
   addImage: async (req) => {
     const file = req.file;
+    const { mo_ta } = req.body;
 
     if (!file) {
-      throw new BadRequestException("Please upload an image");
+      throw new BadRequestException("Please choose an image to upload");
     }
 
     // Configuration
@@ -168,6 +169,7 @@ const userService = {
       data: {
         ten_hinh: file.originalname,
         duong_dan: uploadResult.secure_url,
+        mo_ta: mo_ta || null,
         nguoi_dung_id: req.user.nguoi_dung_id,
       },
     });
@@ -175,6 +177,7 @@ const userService = {
     return {
       ten_hinh: file.originalname,
       duong_dan: uploadResult.secure_url,
+      mo_ta: mo_ta || null,
     };
   },
 };
