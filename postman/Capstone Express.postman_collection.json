@@ -1,515 +1,469 @@
 {
 	"info": {
-		"_postman_id": "d453d9a5-39f3-4065-8803-153936b98be6",
+		"_postman_id": "6dbb9e4a-bbf1-4aff-8061-5beabc936eca",
 		"name": "Capstone Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20569198"
+		"_exporter_id": "39563525",
+		"_collection_link": "https://blue-escape-595268.postman.co/workspace/Team-Workspace~9ec5d11a-7049-486b-808c-c66b42f43dde/collection/39563525-6dbb9e4a-bbf1-4aff-8061-5beabc936eca?action=share&source=collection_link&creator=39563525"
 	},
 	"item": [
 		{
-			"name": "GetImageByName",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/home/getImageByName?page=1&pageSize=1&search=a",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"home",
-						"getImageByName"
-					],
-					"query": [
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
 						{
-							"key": "page",
-							"value": "1"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json()\r",
+									"\r",
+									"if(response.status === `error`) return\r",
+									"\r",
+									"const accessToken = response.metaData.accessToken\r",
+									"const refreshToken = response.metaData.refreshToken\r",
+									"\r",
+									"pm.globals.set(\"accessToken\", accessToken);\r",
+									"pm.globals.set(\"refreshToken\", refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
 						},
-						{
-							"key": "pageSize",
-							"value": "1"
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nhanvo@email.com\",\r\n    \"mat_khau\":\"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "search",
-							"value": "a"
+						"url": {
+							"raw": "http://localhost:3000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"login"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetImages",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/home/getImages?page=1&pageSize=3",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"home",
-						"getImages"
-					],
-					"query": [
-						{
-							"key": "page",
-							"value": "1"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "noauth"
 						},
-						{
-							"key": "pageSize",
-							"value": "3"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Login",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"alice2312@example.com\",\r\n    \"mat_khau\":\"password123\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/auth/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"auth",
-						"login"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "EditUserInfo",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTc0MDY2Nzk2NSwiZXhwIjoxNzQwNzU0MzY1fQ.K5VNqnVFUVO7N4OSAOgFlEZqRvmXQCtHRKzBgpjjEds",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "ho_ten",
-							"value": "nguyenvana",
-							"type": "text"
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nhanvo@email.com\",\r\n    \"mat_khau\":\"12345\",\r\n    \"ho_ten\":\"nhanvo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "tuoi",
-							"value": "26",
-							"type": "text"
+						"url": {
+							"raw": "http://localhost:3000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
 						},
-						{
-							"key": "avatar",
-							"type": "file",
-							"src": "/C:/Users/nguye/OneDrive/Pictures/Saved Pictures/Screenshot 2025-02-26 194412.png",
-							"disabled": true
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/get-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"get-info"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/user/editUserInfo",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"user",
-						"editUserInfo"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetDetailImageByID",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getDetailImage/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getDetailImage",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Register",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"alice2312@example.com\",\r\n    \"mat_khau\":\"password123\",\r\n    \"ho_ten\":\"ngueynvan\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Edit User Info",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "ho_ten",
+									"value": "nguyenvana",
+									"type": "text"
+								},
+								{
+									"key": "tuoi",
+									"value": "26",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/nguye/OneDrive/Pictures/Saved Pictures/Screenshot 2025-02-26 194412.png",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/editUserInfo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"editUserInfo"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/auth/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"auth",
-						"register"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetCommentByIdImage",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/comment/getCommentByIdImage/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"comment",
-						"getCommentByIdImage",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CommentImageById",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
+				{
+					"name": "Get Saved Images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/get-saved-images",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"get-saved-images"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"noi_dung\":\"axcvxcdssdf\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+				{
+					"name": "Get Created Images",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/get-created-images",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"get-created-images"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:3000/comment/commentImage/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"comment",
-						"commentImage",
-						"1"
-					]
+				{
+					"name": "Delete Image By Id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/delete-image/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"delete-image",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Downloads/444764396_1270839817210032_4975418573926142588_n.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/add-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"add-image"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GetImages",
-			"request": {
-				"auth": {
-					"type": "noauth"
+			"name": "Comment",
+			"item": [
+				{
+					"name": "GetCommentByIdImage",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/comment/getCommentByIdImage/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"getCommentByIdImage",
+								"2"
+							]
+						}
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getImages",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getImages"
-					]
+				{
+					"name": "CommentImageById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"noi_dung\":\"axcvxcdssdf\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/comment/commentImage/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"comment",
+								"commentImage",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "GetImageByName",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getImageByName?search=a",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getImageByName"
-					],
-					"query": [
-						{
-							"key": "search",
-							"value": "a"
+			"name": "Image",
+			"item": [
+				{
+					"name": "GetImages",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/image/getImages",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"image",
+								"getImages"
+							]
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetDetailImageById",
-			"request": {
-				"auth": {
-					"type": "noauth"
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getDetailImage/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getDetailImage",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "CheckSaveImage",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
+				{
+					"name": "GetDetailImageById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/image/getDetailImage/21",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"image",
+								"getDetailImage",
+								"21"
+							]
 						}
-					]
+					},
+					"response": []
 				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/checkSaveImage/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"checkSaveImage",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetSavedImage",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
+				{
+					"name": "CheckSaveImage",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/image/checkSaveImage/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"image",
+								"checkSaveImage",
+								"3"
+							]
 						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getSavedImage",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getSavedImage"
-					]
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "GetCreatedImage",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/getCreatedImage",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"getCreatedImage"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DeleteImageById",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/image/delete/1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"delete",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "AddImage",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "image",
-							"type": "file",
-							"src": "/C:/Users/nguye/OneDrive/Pictures/Saved Pictures/Screenshot 2025-02-26 194412.png"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:3000/image/add",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"image",
-						"add"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
