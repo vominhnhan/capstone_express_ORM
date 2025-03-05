@@ -1,10 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6dbb9e4a-bbf1-4aff-8061-5beabc936eca",
+		"_postman_id": "6d388ae3-c875-458c-8cfc-9c606dd61dfc",
 		"name": "Capstone Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39563525",
-		"_collection_link": "https://blue-escape-595268.postman.co/workspace/Team-Workspace~9ec5d11a-7049-486b-808c-c66b42f43dde/collection/39563525-6dbb9e4a-bbf1-4aff-8061-5beabc936eca?action=share&source=collection_link&creator=39563525"
+		"_exporter_id": "20569198"
 	},
 	"item": [
 		{
@@ -320,7 +319,14 @@
 					"name": "GetCommentByIdImage",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -458,6 +464,50 @@
 								"image",
 								"checkSaveImage",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetImageByName",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/image/getImageByName?page=1&pageSize=4&search=s",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"image",
+								"getImageByName"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "4"
+								},
+								{
+									"key": "search",
+									"value": "s"
+								}
 							]
 						}
 					},

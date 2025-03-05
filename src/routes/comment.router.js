@@ -4,7 +4,7 @@ import { protect } from "../middleware/protect.middleware.js";
 
 const commentRouter = express.Router();
 
-commentRouter.get(`/getCommentByIdImage/:id`, commentController.getCommentByIdImage);
+commentRouter.get(`/getCommentByIdImage/:id`, protect, commentController.getCommentByIdImage);
 
 commentRouter.post(`/commentImage/:id`, protect, commentController.commentImage);
 
