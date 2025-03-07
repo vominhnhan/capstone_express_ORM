@@ -9,13 +9,13 @@ Trang đăng nhập, đăng ký:
 - POST trang đăng nhập: [http://localhost:3000/auth/login](http://localhost:3000/auth/login)
 
 Trang quản lý ảnh:
-- GET thông tin user: [http://localhost:3000/user/getInfo](http://localhost:3000/user/getInfo)
-- GET danh sách ảnh đã lưu theo user id: [http://localhost:3000/image/getSavedImage](http://localhost:3000/image/getSavedImage)
-- GET danh sách ảnh đã tạo theo user id: [http://localhost:3000/image/getCreatedImage](http://localhost:3000/image/getCreatedImage)
-- DELETE xóa ảnh đã tạo theo id ảnh: [http://localhost:3000/image/delete/:id](http://localhost:3000/image/delete/:id)
+- GET thông tin user: [http://localhost:3000/user/get-info](http://localhost:3000/user/get-info)
+- GET danh sách ảnh đã lưu theo user id: [http://localhost:3000/user/get-saved-images](http://localhost:3000/user/get-saved-images)
+- GET danh sách ảnh đã tạo theo user id: [http://localhost:3000/user/get-created-images](http://localhost:3000/user/get-created-images)
+- DELETE xóa ảnh đã tạo theo id ảnh: [http://localhost:3000/user/delete-image/:id](http://localhost:3000/user/delete-image/:id)
 
 Trang thêm ảnh:
-- POST thêm một ảnh của user: [http://localhost:3000/image/add](http://localhost:3000/image/add)
+- POST thêm một ảnh của user: [http://localhost:3000/user/add-image](http://localhost:3000/user/add-image)
 
 ## Task: Nguyễn Văn Sỹ
 Trang chủ:
