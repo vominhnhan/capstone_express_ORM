@@ -171,6 +171,7 @@ const userService = {
         duong_dan: uploadResult.secure_url,
         mo_ta: mo_ta || null,
         nguoi_dung_id: req.user.nguoi_dung_id,
+        created_at: new Date(),
       },
     });
 

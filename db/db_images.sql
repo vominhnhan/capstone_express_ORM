@@ -62,49 +62,50 @@ CREATE TABLE `nguoi_dung` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `binh_luan` (`binh_luan_id`, `nguoi_dung_id`, `hinh_id`, `ngay_binh_luan`, `noi_dung`, `updated_at`, `created_at`) VALUES
-(1, 1, 2, '2025-01-15', 'Amazing view!', NULL, '2025-01-31');
-INSERT INTO `binh_luan` (`binh_luan_id`, `nguoi_dung_id`, `hinh_id`, `ngay_binh_luan`, `noi_dung`, `updated_at`, `created_at`) VALUES
-(2, 2, 1, '2025-01-16', 'So peaceful and relaxing!', NULL, '2025-01-31');
-INSERT INTO `binh_luan` (`binh_luan_id`, `nguoi_dung_id`, `hinh_id`, `ngay_binh_luan`, `noi_dung`, `updated_at`, `created_at`) VALUES
-(3, 3, 1, '2025-01-17', 'I wish I was there.', NULL, '2025-01-31');
-INSERT INTO `binh_luan` (`binh_luan_id`, `nguoi_dung_id`, `hinh_id`, `ngay_binh_luan`, `noi_dung`, `updated_at`, `created_at`) VALUES
-(4, 4, 3, '2025-01-18', 'The city looks stunning!', NULL, '2025-01-31'),
-(5, 5, 4, '2025-01-19', 'Nature at its finest!', NULL, '2025-01-31'),
-(6, 1, 2, '2025-01-27', 'asdashgdasgdashdgs', NULL, '2025-01-31'),
-(7, 1, 2, '2025-01-31', 'asdashgdasgdashdgs', NULL, '2025-01-31');
+INSERT INTO `binh_luan` (`binh_luan_id`, `nguoi_dung_id`, `hinh_id`, `ngay_binh_luan`, `noi_dung`, `created_at`, `updated_at`) VALUES
+(1, 2, 1, '2025-02-01', 'The ocean looks amazing!', '2025-02-01', '2025-02-01'),
+(2, 3, 2, '2025-02-02', 'Such a majestic mountain!', '2025-02-02', '2025-02-02'),
+(3, 4, 3, '2025-02-03', 'Love the lotus flowers!', '2025-02-03', '2025-02-03'),
+(4, 5, 4, '2025-02-04', 'Romantic sunset!', '2025-02-04', '2025-02-04'),
+(5, 1, 5, '2025-02-05', 'City lights are stunning!', '2025-02-05', '2025-02-05'),
+(6, 2, 6, '2025-02-06', 'Peaceful rice field.', '2025-02-06', '2025-02-06'),
+(7, 3, 7, '2025-02-07', 'Cool waterfall!', '2025-02-07', '2025-02-07'),
+(8, 4, 8, '2025-02-08', 'Beautiful starry sky!', '2025-02-08', '2025-02-08'),
+(9, 5, 9, '2025-02-09', 'Vivid rainbow!', '2025-02-09', '2025-02-09'),
+(10, 1, 10, '2025-02-10', 'Relaxing park view!', '2025-02-10', '2025-02-10');
 
-INSERT INTO `hinh_anh` (`hinh_id`, `ten_hinh`, `duong_dan`, `mo_ta`, `nguoi_dung_id`, `updated_at`, `created_at`) VALUES
-(1, 'Sunset', 'images/sunset.jpg', 'Beautiful sunset at the beach', 1, NULL, '2025-01-31');
-INSERT INTO `hinh_anh` (`hinh_id`, `ten_hinh`, `duong_dan`, `mo_ta`, `nguoi_dung_id`, `updated_at`, `created_at`) VALUES
-(2, 'Mountain', 'images/mountain.jpg', 'Snowy mountain peak', 2, NULL, '2025-01-31');
-INSERT INTO `hinh_anh` (`hinh_id`, `ten_hinh`, `duong_dan`, `mo_ta`, `nguoi_dung_id`, `updated_at`, `created_at`) VALUES
-(3, 'Cityscape', 'images/cityscape.jpg', 'City skyline at night', 3, NULL, '2025-01-31');
-INSERT INTO `hinh_anh` (`hinh_id`, `ten_hinh`, `duong_dan`, `mo_ta`, `nguoi_dung_id`, `updated_at`, `created_at`) VALUES
-(4, 'Forest', 'images/forest.jpg', 'Lush green forest', 4, NULL, '2025-01-31'),
-(5, 'Ocean', 'images/ocean.jpg', 'Vast blue ocean', 5, NULL, '2025-01-31');
+INSERT INTO `hinh_anh` (`hinh_id`, `ten_hinh`, `duong_dan`, `mo_ta`, `nguoi_dung_id`, `created_at`, `updated_at`) VALUES
+(1, 'Ocean View', 'images/ocean.jpg', 'A beautiful blue ocean', 1, '2025-01-15', '2025-02-15'),
+(2, 'Mountain Peak', 'images/mountain.jpg', 'Majestic mountain scenery', 2, '2025-01-16', '2025-02-16'),
+(3, 'Lotus Bloom', 'images/lotus.jpg', 'Blooming lotus flowers', 3, '2025-01-17', '2025-02-17'),
+(4, 'Sunset Glow', 'images/sunset.jpg', 'Sunset over the sea', 4, '2025-01-18', '2025-02-18'),
+(5, 'City Lights', 'images/city_night.jpg', 'Twinkling city lights at night', 5, '2025-01-19', '2025-02-19'),
+(6, 'Rice Field', 'images/rice_field.jpg', 'Golden rice field', 1, '2025-01-20', '2025-02-20'),
+(7, 'Waterfall', 'images/waterfall.jpg', 'Cool refreshing waterfall', 2, '2025-01-21', '2025-02-21'),
+(8, 'Starry Sky', 'images/starry_sky.jpg', 'A sky full of stars', 3, '2025-01-22', '2025-02-22'),
+(9, 'Rainbow', 'images/rainbow.jpg', 'Rainbow after the rain', 4, '2025-01-23', '2025-02-23'),
+(10, 'Green Park', 'images/park.jpg', 'A lush green park', 5, '2025-01-24', '2025-02-24');
 
 INSERT INTO `luu_anh` (`luu_anh_id`, `nguoi_dung_id`, `hinh_id`, `ngay_luu`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, '2025-01-18', '2025-01-31', NULL);
-INSERT INTO `luu_anh` (`luu_anh_id`, `nguoi_dung_id`, `hinh_id`, `ngay_luu`, `created_at`, `updated_at`) VALUES
-(2, 2, 3, '2025-01-19', '2025-01-31', NULL);
-INSERT INTO `luu_anh` (`luu_anh_id`, `nguoi_dung_id`, `hinh_id`, `ngay_luu`, `created_at`, `updated_at`) VALUES
-(3, 3, 2, '2025-01-20', '2025-01-31', NULL);
-INSERT INTO `luu_anh` (`luu_anh_id`, `nguoi_dung_id`, `hinh_id`, `ngay_luu`, `created_at`, `updated_at`) VALUES
-(4, 4, 5, '2025-01-21', '2025-01-31', NULL),
-(5, 5, 1, '2025-01-22', '2025-01-31', NULL);
+(1, 1, 2, '2025-02-15', '2025-02-15', '2025-02-15'),
+(2, 2, 3, '2025-02-16', '2025-02-16', '2025-02-16'),
+(3, 3, 4, '2025-02-17', '2025-02-17', '2025-02-17'),
+(4, 4, 5, '2025-02-18', '2025-02-18', '2025-02-18'),
+(5, 5, 6, '2025-02-19', '2025-02-19', '2025-02-19'),
+(6, 1, 7, '2025-02-20', '2025-02-20', '2025-02-20'),
+(7, 2, 8, '2025-02-21', '2025-02-21', '2025-02-21'),
+(8, 3, 9, '2025-02-22', '2025-02-22', '2025-02-22'),
+(9, 4, 10, '2025-02-23', '2025-02-23', '2025-02-23'),
+(10, 5, 1, '2025-02-24', '2025-02-24', '2025-02-24');
 
-INSERT INTO `nguoi_dung` (`nguoi_dung_id`, `email`, `mat_khau`, `ho_ten`, `tuoi`, `anh_dai_dien`, `updated_at`, `created_at`) VALUES
-(1, 'alice@example.com', 'password123', 'asdasd', 19, 'abc.jpg', NULL, '2025-01-31');
-INSERT INTO `nguoi_dung` (`nguoi_dung_id`, `email`, `mat_khau`, `ho_ten`, `tuoi`, `anh_dai_dien`, `updated_at`, `created_at`) VALUES
-(2, 'bob@example.com', 'securepass456', 'Bob Tran', 30, 'bob_avatar.jpg', NULL, '2025-01-31');
-INSERT INTO `nguoi_dung` (`nguoi_dung_id`, `email`, `mat_khau`, `ho_ten`, `tuoi`, `anh_dai_dien`, `updated_at`, `created_at`) VALUES
-(3, 'charlie@example.com', 'charlie789', 'Charlie Le', 28, 'charlie_avatar.jpg', NULL, '2025-01-31');
-INSERT INTO `nguoi_dung` (`nguoi_dung_id`, `email`, `mat_khau`, `ho_ten`, `tuoi`, `anh_dai_dien`, `updated_at`, `created_at`) VALUES
-(4, 'diana@example.com', 'diana1234', 'Diana Pham', 22, 'diana_avatar.jpg', NULL, '2025-01-31'),
-(5, 'edward@example.com', 'edward5678', 'Edward Vu', 35, 'edward_avatar.jpg', NULL, '2025-01-31');
+INSERT INTO `nguoi_dung` (`nguoi_dung_id`, `email`, `mat_khau`, `ho_ten`, `tuoi`, `anh_dai_dien`, `created_at`, `updated_at`) VALUES
+(1, 'john.doe@gmail.com', 'John2025!', 'John Doe', 25, 'avatar1.jpg', '2025-01-01', '2025-03-01'),
+(2, 'jane.smith@gmail.com', 'JaneLovesCats', 'Jane Smith', 30, 'avatar2.jpg', '2025-01-02', '2025-03-02'),
+(3, 'michael.lee@gmail.com', 'Mike1234', 'Michael Lee', 22, 'avatar3.jpg', '2025-01-03', '2025-03-03'),
+(4, 'emily.brown@gmail.com', 'Emily@2025', 'Emily Brown', 28, 'avatar4.jpg', '2025-01-04', '2025-03-04'),
+(5, 'david.wilson@gmail.com', 'David_PW99', 'David Wilson', 35, 'avatar5.jpg', '2025-01-05', '2025-03-05');
 
-
+	
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

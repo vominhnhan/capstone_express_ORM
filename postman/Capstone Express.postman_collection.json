@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "6d388ae3-c875-458c-8cfc-9c606dd61dfc",
+		"_postman_id": "3f7ebe06-09af-49f4-aaaf-78f9e5e1cc4f",
 		"name": "Capstone Express",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "20569198"
+		"_exporter_id": "39563525"
 	},
 	"item": [
 		{
@@ -39,7 +39,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"nhanvo@email.com\",\r\n    \"mat_khau\":\"12345\"\r\n}",
+							"raw": "{\r\n    \"email\":\"nhanvo@gmail.com\",\r\n    \"mat_khau\":\"12345\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -71,7 +71,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"nhanvo@email.com\",\r\n    \"mat_khau\":\"12345\",\r\n    \"ho_ten\":\"nhanvo\"\r\n}",
+							"raw": "{\r\n    \"email\":\"nhanvo@gmail.com\",\r\n    \"mat_khau\":\"12345\",\r\n    \"ho_ten\":\"nhan vo\",\r\n    \"tuoi\": 22\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -148,7 +148,7 @@
 							"formdata": [
 								{
 									"key": "ho_ten",
-									"value": "nguyenvana",
+									"value": "nguyen van a",
 									"type": "text"
 								},
 								{
@@ -159,8 +159,7 @@
 								{
 									"key": "avatar",
 									"type": "file",
-									"src": "/C:/Users/nguye/OneDrive/Pictures/Saved Pictures/Screenshot 2025-02-26 194412.png",
-									"disabled": true
+									"src": "/D:/Downloads/45184572_9154281.jpg"
 								}
 							]
 						},
@@ -174,6 +173,46 @@
 							"path": [
 								"user",
 								"editUserInfo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Image",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/D:/Downloads/Screenshot_96.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/add-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"add-image"
 							]
 						}
 					},
@@ -247,7 +286,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjYsImlhdCI6MTc0MDY3OTYwMCwiZXhwIjoxNzQwNzY2MDAwfQ.UEMRgOUtkS85BKhzaWJk_8Fez7RaZ8d1dyvK0u0mg-Y",
+									"value": "{{accessToken}}",
 									"type": "string"
 								}
 							]
@@ -255,7 +294,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/delete-image/2",
+							"raw": "http://localhost:3000/user/delete-image/11",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -264,47 +303,7 @@
 							"path": [
 								"user",
 								"delete-image",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add Image",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{accessToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "image",
-									"type": "file",
-									"src": "/D:/Downloads/444764396_1270839817210032_4975418573926142588_n.jpg"
-								}
-							]
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/add-image",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"add-image"
+								"11"
 							]
 						}
 					},
@@ -316,7 +315,7 @@
 			"name": "Comment",
 			"item": [
 				{
-					"name": "GetCommentByIdImage",
+					"name": "Get Comment By Id Image",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -347,7 +346,7 @@
 					"response": []
 				},
 				{
-					"name": "CommentImageById",
+					"name": "Comment Image By Id",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -363,7 +362,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"noi_dung\":\"axcvxcdssdf\"\r\n}",
+							"raw": "{\r\n    \"noi_dung\":\"Nice!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,7 +370,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/comment/commentImage/1",
+							"raw": "http://localhost:3000/comment/commentImage/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -380,7 +379,7 @@
 							"path": [
 								"comment",
 								"commentImage",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -392,10 +391,17 @@
 			"name": "Image",
 			"item": [
 				{
-					"name": "GetImages",
+					"name": "Get Images",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -415,15 +421,22 @@
 					"response": []
 				},
 				{
-					"name": "GetDetailImageById",
+					"name": "Get Detail Image By Id",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/image/getDetailImage/21",
+							"raw": "http://localhost:3000/image/getDetailImage/12",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -432,14 +445,14 @@
 							"path": [
 								"image",
 								"getDetailImage",
-								"21"
+								"12"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "CheckSaveImage",
+					"name": "Check Save Image",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -454,7 +467,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/image/checkSaveImage/3",
+							"raw": "http://localhost:3000/image/checkSaveImage/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -463,14 +476,14 @@
 							"path": [
 								"image",
 								"checkSaveImage",
-								"3"
+								"1"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "GetImageByName",
+					"name": "Get Image By Name",
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -485,7 +498,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/image/getImageByName?page=1&pageSize=4&search=s",
+							"raw": "http://localhost:3000/image/getImageByName?page=1&pageSize=4&search=a",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -506,7 +519,7 @@
 								},
 								{
 									"key": "search",
-									"value": "s"
+									"value": "a"
 								}
 							]
 						}

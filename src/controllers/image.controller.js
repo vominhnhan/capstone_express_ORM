@@ -47,7 +47,6 @@ const imageController = {
       const resData = responseSuccess(result, "Image has been saved.", 200);
       res.status(resData.code).json(resData);
     } catch (err) {
-      console.log(err);
       next(err);
     }
   },
