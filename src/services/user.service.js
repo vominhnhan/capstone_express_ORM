@@ -59,7 +59,7 @@ const userService = {
       },
       data: {
         ho_ten: ho_ten?.trim() || user.ho_ten,
-        tuoi: Number.isInteger(tuoi) && tuoi > 0 ? tuoi : user.tuoi,
+        tuoi: +tuoi > 0 ? +tuoi : user.tuoi,
         anh_dai_dien: uploadResult?.secure_url ?? user.anh_dai_dien,
         updated_at: new Date(),
       },

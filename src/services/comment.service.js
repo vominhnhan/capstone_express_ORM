@@ -54,10 +54,11 @@ const commentService = {
                 nguoi_dung_id: req.user.nguoi_dung_id,
                 hinh_id: idNum,
                 ngay_binh_luan: new Date(),
-                noi_dung
+                noi_dung,
+                created_at: new Date(),
             },
         });
-
+        
         return commentNew;
     }
 }
